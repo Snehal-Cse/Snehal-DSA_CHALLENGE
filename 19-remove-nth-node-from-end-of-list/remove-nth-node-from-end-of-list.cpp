@@ -39,15 +39,17 @@ public:
          if(n==1){
            return  reverseList(temp->next);
         }
-     
-        ListNode *ptr = temp;
-        for (int i = 1; i < n - 1; i++) {
-            ptr = ptr->next;
+       ListNode *ptr = temp;
+       ListNode *ptr2 = ptr->next;
+        int i =1;
+       
+        while(i<n-1){
+            ptr= ptr->next;
+            ptr2= ptr2->next;
+            i++;
         }
-
-        // Remove the nth node from the end
-        if (ptr != NULL && ptr->next != NULL) {
-            ptr->next = ptr->next->next;
+        if(ptr!=NULL && ptr2!=NULL){
+             ptr->next = ptr2->next;
         }
        
       

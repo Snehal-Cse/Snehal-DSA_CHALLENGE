@@ -25,6 +25,10 @@ public:
                 }
                
                   l++;
+                maxF =0;
+                for(auto it=mp.begin(); it!=mp.end(); it++){
+                    maxF= max(maxF, it->second);
+                }
             }
             r++;
         }

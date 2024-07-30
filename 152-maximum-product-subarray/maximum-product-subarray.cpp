@@ -2,25 +2,22 @@ class Solution {
 public:
     
     int maxProduct(vector<int>& nums) {
-      int n = nums.size();
-        long long leftProduct = 1;
-        long long rightProduct = 1;
-        long long ans = nums[0];
-
-        for (int i = 0; i < n; i++) {
-            // If any of leftProduct or rightProduct become 0 or less than minimum integer value, then update it to 1
-            leftProduct = (leftProduct == 0 || leftProduct < INT_MIN) ? 1 : leftProduct;
-            rightProduct = (rightProduct == 0 || rightProduct < INT_MIN) ? 1 : rightProduct;
-
-            // Prefix product
-            leftProduct *= nums[i];
-
-            // Suffix product
-            rightProduct *= nums[n - 1 - i];
-
-            ans = max(ans, max(leftProduct, rightProduct));
+      long long int pref = 1;
+      long long int suff =1;
+      long long maxi = INT_MIN;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+           if(pref == 0 || pref<INT_MIN){
+               pref = 1;
+           } 
+             if(suff == 0 || suff<INT_MIN){
+               suff = 1;
+           } 
+          pref = pref * nums[i];
+            suff = suff * nums[n-i-1];
+            maxi = max(maxi, max(pref, suff));
         }
-
-        return static_cast<int>(ans);
+        return maxi;
+     
         }
 };

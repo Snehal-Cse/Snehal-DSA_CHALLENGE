@@ -12,8 +12,11 @@
 class Solution {
 public:
 bool isSymmetricH(TreeNode *left, TreeNode *right){
-    if(left==NULL || right==NULL){
-        return left == right;
+    if(left==NULL && right==NULL){
+        return true;
+    }
+    if((left == NULL && right !=NULL) || (left !=NULL && right ==NULL)){
+        return false;
     }
     if(left->val != right ->val){
         return false;

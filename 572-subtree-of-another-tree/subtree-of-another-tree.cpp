@@ -13,11 +13,11 @@ class Solution {
 public:
     void preOrder(TreeNode *root, string &str){
         if (root) {
-            str += "," + to_string(root->val);
+            str += root->val;
             preOrder(root->left, str);
             preOrder(root->right, str);
         } else {
-            str += ",#"; // Append a special character for null pointers
+            str += "#"; // Append a special character for null pointers
         }
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {

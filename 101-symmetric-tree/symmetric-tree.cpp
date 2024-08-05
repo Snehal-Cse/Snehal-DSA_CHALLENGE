@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-bool isSymmetricH(TreeNode *left, TreeNode *right){
-    if(left==NULL && right==NULL){
-        return true;
-    }
-    if((left == NULL && right !=NULL) || (left !=NULL && right ==NULL)){
+bool mirror(TreeNode *l, TreeNode *r){
+    if(l==NULL || r==NULL){
+        return l==r;
+        }
+    if(l->val != r->val){
         return false;
     }
-    if(left->val != right ->val){
-        return false;
-    }
-    return isSymmetricH(left->left, right->right) && isSymmetricH(left->right, right->left);
+    return mirror(l->left, r->right) && mirror(l->right, r->left);
 }
 
 bool isSymmetric(TreeNode* root) {
-   return isSymmetricH(root->left, root->right);
+  return mirror(root->left, root->right);
 }
 
 };

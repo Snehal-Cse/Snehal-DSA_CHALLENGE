@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool findPath(TreeNode *root, vector<TreeNode*>& path, int val) {
+      bool findPath(TreeNode *root, vector<TreeNode*>& path, int val) {
         if (root == NULL) {
             return false;
         }
@@ -16,7 +16,7 @@ public:
     }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> path1;
+      vector<TreeNode*> path1;
         vector<TreeNode*> path2;
         
         if (!findPath(root, path1, p->val) || !findPath(root, path2, q->val)) {

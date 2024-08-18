@@ -10,8 +10,8 @@ public:
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        int up = f(dp, i-1, j);
-        int left = f(dp, i, j-1);
+        int up = (i-1>=0) ? f(dp, i-1, j) : 0;
+        int left = (j-1>=0) ? f(dp, i, j-1) : 0 ;
         return dp[i][j] = up+left;
     }
     

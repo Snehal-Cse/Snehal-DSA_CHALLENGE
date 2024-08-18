@@ -1,23 +1,42 @@
 class Solution {
 public:
     
-    int findMaxForm(vector<string>& strs, int m, int n) {
+ pair<int, int>count(string &str){
+     int zero = 0;
+     int one = 0;
+     for(char c: str){
+         if(c=='0'){
+             zero++;
+         }
+         else if(c=='1'){
+             one++;
+         }   
+     }  
+     return {zero, one};
+ }
+   
+    int f(vector<vector<vector<int>>>&dp, vector<string>&strs,int len, int i, int j){  
         
-    vector<vector<vector<int>>>dp(strs.size()+1, vector<vector<int>>(m+1, vector<int>(n+1, 0)));
-    for(int i=1;i<=strs.size();i++){
-        for(int j=0;j<=m;j++){
-            for(int k =0;k<=n;k++){
-               int cntZero = count(strs[i-1].begin(), strs[i-1].end(), '0');
-                int cntOne = strs[i-1].size()-cntZero; 
-                int take =0;
-                if(j-cntZero>=0 && k-cntOne>=0){
-               take =1+dp[i-1][ j-cntZero][k-cntOne] ;
+        int p = strs.size();
+        if(len >=p || (i==0 && j==0)){
+            return 0;
         }
-              int notTake = dp[i-1][j][k];
-              dp[i][j][k]= max(take, notTake);
-            }
+        
+        
+    if(dp[len][i][j]!=-1){
+        return dp[len][i][j];
+    } 
+    auto [cntZero, cntOne] =  count(strs[len]);
+        int take =0;
+        if(cntZero<=i && cntOne<=j){
+             take = 1 + f(dp, strs, len+1, i-cntZero, j-cntOne);
         }
+    int notTake = f(dp, strs, len+1, i, j);
+    return dp[len][i][j] = max(take, notTake);  
     }
-       return dp[strs.size()][m][n]; 
+    int findMaxForm(vector<string>& strs, int m, int n) {
+    int a  = strs.size();
+    vector<vector<vector<int>>>dp(a+1, vector<vector<int>>(m+1, vector<int>(n+1, -1)));
+    return f(dp, strs, 0, m, n);
     }
 };

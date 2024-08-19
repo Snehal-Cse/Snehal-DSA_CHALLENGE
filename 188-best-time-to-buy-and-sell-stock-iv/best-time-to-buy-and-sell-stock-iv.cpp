@@ -1,33 +1,29 @@
 class Solution {
 public:
-   
+    int f(vector<vector<vector<int>>>&dp, int k, vector<int>&prices, int i, int buy){
+       int n = prices.size(); 
+       if(i==n || k==0){
+           return 0;
+       } 
+        
+        if(dp[i][k][buy]!=-1){
+            return dp[i][k][buy];
+        }
+       int cnt =INT_MIN; 
+        
+       if(buy){
+         cnt = max((-prices[i]+f(dp, k, prices, i+1, 0)), (f(dp, k, prices, i+1, 1)));
+       }
+       else{
+          cnt =  max((prices[i]+f(dp, k-1, prices, i+1, 1)), (f(dp, k, prices, i+1, 0)));
+       }
+        return dp[i][k][buy]= cnt;
+       
+    }
     int maxProfit(int k, vector<int>& prices) {
-     int n = prices.size();
-        vector<vector<vector<int>>>dp(n+1, vector<vector<int>>(2, vector<int>(k+1, 0)));
-       int profit= INT_MIN;
-        for(int i=n-1;i>=0;i--){
-            for(int j=0;j<2;j++){
-                for(int cap = 1;cap<=k;cap++){
-                    if(j){
-            profit = max((-prices[i]+dp[i+1][0][cap]),(0+dp[i+1][1][cap]));
-        }
-        else{
-            profit = max((prices[i]+dp[i+1][1][cap-1]),(0+dp[i+1][0][cap]));
-        } 
-                    dp[i][j][cap] = profit;
-                }
-            }
-        }
-        
-        
-        return dp[0][1][k];
-        
-        
-        
-        
-        
-        
-        
+        int n = prices.size();
+        vector<vector<vector<int>>>dp(n, vector<vector<int>>(k+1, vector<int>(2, -1)));
+        return f(dp, k, prices, 0, 1);
     }
 };
 
